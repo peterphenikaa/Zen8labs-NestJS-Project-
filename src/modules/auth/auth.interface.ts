@@ -5,5 +5,15 @@ export interface ILoginResponse {
     crsfToken: string,
 }
 
+export interface IJwtPayload {
+    sub: string,
+    exp: number,
+    iat: number  // Issued At: thời điểm Token được cấp 
+}
+
+
+
+
+
 
 
