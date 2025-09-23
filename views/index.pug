@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    title Chào mừng
+    style.
+      body { font-family: Arial, sans-serif; background: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+      .container { text-align: center; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+      .loading { font-size: 18px; color: #007bff; }
+  body
+    .container
+      .loading Đang kiểm tra trạng thái đăng nhập...
+
+  script.
+    document.addEventListener('DOMContentLoaded', function() {
+      const accessToken = localStorage.getItem('accessToken');
+      
+      if (accessToken && isTokenValid(accessToken)) {
+        // Đã đăng nhập, chuyển đến dashboard
+        window.location.href = '/v1/auth/dashboard';
+      } else {
+        // Chưa đăng nhập, chuyển đến trang login
+        window.location.href = '/v1/auth/login';
+      }
+    });
+
+    function isTokenValid(token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const currentTime = Math.floor(Date.now() / 1000);
+        return payload.exp > currentTime;
+      } catch (error) {
+        return false;
+      }
+    }
